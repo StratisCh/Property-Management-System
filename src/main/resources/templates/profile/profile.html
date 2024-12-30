@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+
+<div layout:fragment="main-content">
+    <div th:if="${profile.firstName != null}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Join Date</th>
+            <th th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'Rank' : 'Rating'}"></th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${profile.firstName}"></td>
+            <td th:text="${profile.lastName}"></td>
+            <td th:text="${profile.joinDate}"></td>
+            <td>
+                <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="${profile.rank}"></span>
+                <span th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')') and profile.rating.average() != 0.0}"
+                      th:text="${profile.rating.average}"></span>
+            </td>
+            <td>
+
+                <a class="btn btn-outline-primary btn-sm" th:href="@{'/profile/new'}">Update</a>
+                <span>
+                    <a  sec:authorize="hasRole('ROLE_OWNER')"class="btn btn-outline-primary btn-sm" th:href="@{'/listings/profile'}">View Listings</a>
+                </span>
+                <span>
+                    <a sec:authorize="hasRole('ROLE_TENANT')"class="btn btn-outline-primary btn-sm" th:href="@{'/profile/offers'}">View Offers</a>
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${profile.description}"></td>
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
+

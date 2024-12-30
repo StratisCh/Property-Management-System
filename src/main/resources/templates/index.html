@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <h1>Welcome!</h1>
+  <a sec:authorize="hasRole('ROLE_OWNER')"class="btn btn-outline-primary btn-sm" th:href="@{'/listings/new'}">Add Listing</a>
+  <a sec:authorize="hasRole('ROLE_OWNER') or hasRole('ROLE_TENANT')" class="btn btn-outline-primary btn-sm" th:href="@{'/listings'}">Find Listing</a>
+  <a sec:authorize="hasRole('ROLE_ADMIN')"class="btn btn-outline-primary btn-sm" th:href="@{'/listings/pending'}">View Pending Listings</a>
+  <a sec:authorize="hasRole('ROLE_ADMIN')"class="btn btn-outline-primary btn-sm" th:href="@{'/tenants'}">Verify Tenants</a>
+</div>
+</body>
+</html>
+
+

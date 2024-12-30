@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Profile</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h3>Update Profile</h3>
+    <form action="#" th:action="@{/profile/new}" th:object="${profile}"
+          method="post">
+        <div class="form-group row">
+            <label for="name">First Name</label>
+            <input type="text" class="form-control" th:field="*{firstName}" id="name" placeholder="Enter first name"/>
+        </div>
+        <div class="form-group row">
+            <label for="surname">Last Name</label>
+            <input type="text" class="form-control" th:field="*{lastName}" id="surname" placeholder="Enter last name"/>
+        </div>
+        <div class="form-group row">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Enter description"/>
+        </div>
+
+        <div class="form-group row">
+            <label>Select Role:</label>
+            <select name="role">
+                <option th:each="role : ${roles}"
+                        th:if="${role.name == 'ROLE_OWNER' || role.name == 'ROLE_TENANT'}"
+                        th:value="${role.id}"
+                        th:text="${role.name}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Update"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

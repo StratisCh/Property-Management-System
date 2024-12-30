@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listing</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <form action="#" th:action="@{'/listings/' + ${listing.listingId} + '/offer'}" th:object="${offer}" method="post">
+        <div class="form-group">
+            <label for="offerAmount">Amount</label>
+            <input type="number" id="offerAmount" class="form-control" th:field="*{offerAmount}">
+            <span th:if="${#fields.hasErrors('offerAmount')}" th:errors="*{offerAmount}" th:errorclass="error"> </span>
+        </div>
+
+
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select name="paymentMethod">
+                <option th:each="methodOpt: ${T(gr.hua.dit.ds.ds_lab_2024.entities.enums.PaymentMethod).values()}"
+                        th:value="${methodOpt}" th:text="${methodOpt}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

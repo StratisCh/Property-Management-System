@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listing</title>
+</head>
+<body>
+<div layout:fragment="main-content" >
+    <form action="#" th:action="@{/listings/examine/{id}(id=${listing.listingId})}" th:object="${listing}" method="post">
+
+        <div class="form-group">
+            <label>Owner Email:</label>
+            <output th:text="*{profile.user.email}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label>Owner Rating:</label>
+            <output th:text="*{profile.rating.average}"> </output>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_OWNER')" class="form-group">
+            <label> Status:</label>
+            <output th:text="*{status}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label>Address:</label>
+            <output th:text="*{address}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Size:</label>
+            <output th:text="*{size}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Price:</label>
+            <output th:text="*{price}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Bedrooms:</label>
+            <output th:text="*{bedrooms}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Rooms:</label>
+            <output th:text="*{rooms}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Bathrooms:</label>
+            <output th:text="*{bathrooms}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Description:</label>
+            <div>
+            <output th:text="*{description}"> </output>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label> Area:</label>
+            <output th:text="*{area}"> </output>
+        </div>
+
+        <div class="form-group">
+            <label> Type:</label>
+            <output th:text="*{type}"> </output>
+        </div>
+
+        <div  sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
+            <label for="status">Set Status:</label>
+            <select name="status">
+                <option th:each="statusOpt: ${T(gr.hua.dit.ds.ds_lab_2024.entities.enums.Status).values()}"
+                        th:value="${statusOpt}" th:text="${statusOpt}"></option>
+            </select>
+        </div>
+        <a sec:authorize="hasRole('ROLE_TENANT')" class="btn btn-outline-primary btn-sm"
+           th:href="@{'/listings/' + ${listing.listingId} + '/offer'}">Make Offer</a>
+
+        <button sec:authorize="hasRole('ROLE_ADMIN')" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
+

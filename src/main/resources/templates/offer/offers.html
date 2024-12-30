@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Offers</title>
+</head>
+<body>
+
+<div layout:fragment="main-content">
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Amount</th>
+                <th>PaymentMethod</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="offer : ${offers}">
+                <td th:text="${offer.offerAmount}"></td>
+                <td th:text="${offer.paymentMethod}"></td>
+                <td th:text="${offer.status}"></td>
+                <td>
+                    <!--      <a class="btn btn-outline-primary btn-sm"  th:href="@{'/listings/offer/' + ${offer.offerId} }"> Examine</a> -->
+                    <a class="btn btn-outline-primary btn-sm"  th:href="@{'/listings/offer/' + ${offer.offerId} }"> Examine</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

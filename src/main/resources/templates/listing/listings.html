@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+
+<div layout:fragment="main-content">
+
+    <form  th:action="@{/listings}" method="get">
+        <div class="form-group">
+            <label for="areaFilter">Filter by Area:</label>
+            <select name="area" id="areaFilter" class="form-control">
+                <option value="">All Areas</option>
+                <option th:each="areaOpt: ${T(gr.hua.dit.ds.ds_lab_2024.entities.enums.GeographicalArea).values()}"
+                        th:value="${areaOpt}" th:text="${areaOpt}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+<br>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Area</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="listing : ${listings}">
+
+                <td th:text="${listing.area}"></td>
+                <td th:text="${listing.type}"></td>
+                <td th:text="${listing.size}"></td>
+                <td th:text="${listing.price}"></td>
+                <td>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-primary btn-sm" th:href="@{'/listings/examine/' + ${listing.listingId}}">View</a>
+
+                    <a sec:authorize="hasRole('ROLE_OWNER') or hasRole('ROLE_TENANT') "class="btn btn-outline-primary btn-sm" th:href="@{'/listings/' + ${listing.listingId}}">View</a>
+
+                    <a sec:authorize="hasRole('ROLE_OWNER')" class="btn btn-outline-primary btn-sm"
+                       th:if="${listing.profile.profileId == owner.profileId}"
+                       th:href="@{'/listings/' + ${listing.listingId} + '/offers'}">Offers</a>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

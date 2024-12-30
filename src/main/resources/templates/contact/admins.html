@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+</head>
+<body>
+
+<div layout:fragment="main-content">
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Rank</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" admin : ${admins}">
+
+                <td th:text="${admin.profile.firstName}"></td>
+                <td th:text="${admin.profile.lastName}"></td>
+                <td th:text="${admin.email}"></td>
+                <td th:text="${admin.profile.rank}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

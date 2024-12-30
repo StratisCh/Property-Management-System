@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header class="masthead mb-auto" th:fragment="header">
+    <div class="inner">
+        <h3 class="masthead-brand">Cover</h3>
+        <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="/" data-path="/" >Home</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/tenants">Verify Tenants</a>
+            <a class="nav-link"  sec:authorize="!hasRole('ROLE_ADMIN')" href="/contact" data-path="/contact" >Contact/Help</a>
+            <a class="nav-link" href="/listings" data-path="/listings" >Listings</a>
+            <a class="nav-link" href="/profile" data-path="/profile">MyProfile</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users">Users</a>
+            </a>
+            <a sec:authorize="!isAuthenticated()"  class="nav-link">
+                <a  class="nav-link" href="/login">Login</a>
+                <a  class="nav-link" href="/register">Register</a>
+            </a>
+            <a sec:authorize="isAuthenticated()"  class="nav-link">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit"  class="btn btn-primary" value="Sign Out"/>
+                </form>
+            </a>
+        </nav>
+    </div>
+</header>
+</body>
+</html>
