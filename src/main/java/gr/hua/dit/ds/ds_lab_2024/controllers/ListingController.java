@@ -35,9 +35,9 @@ public class ListingController {
     @GetMapping("")
     public String showAcceptedListings(@RequestParam(value = "area", required = false)GeographicalArea area, Model model) {
 
-        Profile owner = profileController.getLoggedInUserProfile();
+        Profile profile = profileController.getLoggedInUserProfile();
 
-        model.addAttribute("owner",owner);
+        model.addAttribute("owner",profile);
         model.addAttribute("listings", listingService.getFilteredListings(area));
 
         return "listing/listings";
@@ -46,9 +46,9 @@ public class ListingController {
     @Secured("ROLE_ADMIN")
     @GetMapping("/pending")
     public String showPendingListings(Model model) {
-        Profile owner = profileController.getLoggedInUserProfile();
+        Profile profile = profileController.getLoggedInUserProfile();
 
-        model.addAttribute("owner",owner);
+        model.addAttribute("owner",profile);
         model.addAttribute("listings", listingService.getPendingListings());
         return "/listing/listings";
     }
@@ -72,9 +72,9 @@ public class ListingController {
 
         listingService.saveListing(existingListing);
 
-        Profile owner = profileController.getLoggedInUserProfile();
+        Profile profile = profileController.getLoggedInUserProfile();
 
-        model.addAttribute("owner",owner);
+        model.addAttribute("owner",profile);
         model.addAttribute("listings", listingService.getPendingListings());
         return "/listing/listings";
     }
@@ -102,10 +102,10 @@ public class ListingController {
 
     @GetMapping("/profile")
     public String showProfileListings(Model model) {
-        Profile owner = profileController.getLoggedInUserProfile();
+        Profile profile = profileController.getLoggedInUserProfile();
 
-        model.addAttribute("owner",owner);
-        model.addAttribute("listings",listingService.getProfileListings(owner));
+        model.addAttribute("owner",profile);
+        model.addAttribute("listings",listingService.getProfileListings(profile));
         return "listing/listings";
     }
 
@@ -155,23 +155,6 @@ public class ListingController {
 
         return "offer/examine";
     }
-
-  /*  @PostMapping("/offer/{id}")
-    public String examineOffer(@PathVariable Long id, @ModelAttribute("offer") Offer offer , Model model) {
-        Profile owner = profileController.getLoggedInUserProfile();
-
-        Offer existingOffer = offerService.getOfferById(id);
-
-         existingOffer.setStatus(offer.getStatus());
-
-        offerService.saveOffer(offer);
-
-        model.addAttribute("owner",owner);
-        model.addAttribute("listings",listingService.getProfileListings(owner));
-
-        return"listing/listings";
-    }
-*/
 
 
     @GetMapping("/offer/accept/{id}")
