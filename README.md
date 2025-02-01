@@ -58,6 +58,7 @@ Profile profile = profileController.getLoggedInUserProfile();
 
 ## Environment variables
 
-* spring.datasource.username=dsuser
-* spring.datasource.password=yX3nR3Olt7xxs62GtYcOmIG9aJ6QMGY4
-* spring.datasource.url=jdbc:postgresql://dpg-ctnj5pdds78s73c5cco0-a.oregon-postgres.render.com:5432/dbname_e18f
+* spring.datasource.username=dbuser
+* spring.datasource.password=015cLUgGQIwkKAT7f4onBTnMfDihuLhE
+* spring.datasource.url=jdbc:postgresql://dpg-cuei8c3qf0us73ddp160-a.oregon-postgres.render.com:5432/dbname_mplp
+
